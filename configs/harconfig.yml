@@ -27,7 +27,7 @@ CLASSES:
 TRAIN_DATA: /path/to/harth_v1.2/
 
 # Amount of training data used for validation (between 0 and 1)
-VALID_SPLIT: 0.2
+VALID_SPLIT: 0.1
 # Randomly selected test subjects (Not used during LOSO!)
 TEST_SUBJECTS: [S027.csv,S023.csv,S008.csv,S019.csv,S006.csv,S024.csv, S010.csv,  S014.csv,  S017.csv,  S020.csv]
 SEED: 42
