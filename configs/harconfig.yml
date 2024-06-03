@@ -59,7 +59,7 @@ ALGORITHM: DownstreamMLP
 # Arguments for classifier
 # (all given as lists in case to perform a GridSearch)
 ALGORITHM_ARGS:
-  epochs: [15]
+  epochs: [100]
   margin: [5]
   feature_dim: [500]
   temperature: [0.1]
@@ -67,7 +67,7 @@ ALGORITHM_ARGS:
   margin_thresh: [0.4]
   mse_lambda: [0.01]
   batch_size: [16]
-  loss: [HATCL_LOSS]
+  loss: [LS_MARGIN_LOSS]
   optimizer: [Adam]
   weight_decay: [0.0]
 #   output_activation: [softmax]
