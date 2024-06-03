@@ -66,7 +66,7 @@ ALGORITHM_ARGS:
   mask_fraction: [0.2]
   margin_thresh: [0.4]
   mse_lambda: [0.01]
-  batch_size: [16]
+  batch_size: [4]
   loss: [LS_MARGIN_LOSS]
   optimizer: [Adam]
   weight_decay: [0.0]
