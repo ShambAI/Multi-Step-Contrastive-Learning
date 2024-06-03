@@ -74,8 +74,8 @@ ALGORITHM_ARGS:
 #   metrics: [[F1Score,Accuracy,Precision,Recall]]  # Which metrics to log
   lr: [1e-3]
   lr_scheduler: [ExponentialTFDecay]
-  number_subject: [10]
-  number_sample: [100]
+  number_subject: [100]
+  number_sample: [10]
   total_subjects: [30000]
     #lr_scheduler: [LinearWUSchedule]
   # Architecture params

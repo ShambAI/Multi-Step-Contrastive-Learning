@@ -147,7 +147,7 @@ def main(ssl_loader, valid_loader):
         attn_model.train()  # Set the model to training mode
         train_running_loss = 0.0
         
-        for time_series in tqdm(ssl_loader):
+        for batch_idx, time_series in enumerate(tqdm(ssl_loader)):
             time_series = time_series.to(device)
             
             sim_vector = next_element_function(time_series, thresh)
@@ -170,12 +170,12 @@ def main(ssl_loader, valid_loader):
             # Update training statistics
             train_running_loss += train_loss.item() * time_series.size(0)
 
+            # Log training loss to Wandb
+            if config.WANDB and batch_idx % 10 == 0:
+                wandb.log({'Train Loss': train_epoch_loss, 'Epoch': epoch})
+
         train_epoch_loss = train_running_loss / len(ssl_loader.dataset)
         print(f"Epoch {epoch + 1}/{num_epochs}, Train Loss: {train_epoch_loss:.4f}")
-
-        # Log training loss to Wandb
-        if config.WANDB:
-            wandb.log({'Train Loss': train_epoch_loss, 'Epoch': epoch})
 
         if epoch % config.VALID_INTERVAL == 0:
         
