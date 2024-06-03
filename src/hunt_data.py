@@ -413,7 +413,7 @@ class STFTDataset(HARDataset):
                     # Add your processing code here
                     with np.load(fil_path) as array:
                         # Access the stored array
-                        df = array['data']
+                        df = array['arr_0']
                     
                     
                     x = torch.tensor(df,dtype=torch.float32)
