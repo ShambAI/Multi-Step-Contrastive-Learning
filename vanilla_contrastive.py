@@ -109,7 +109,7 @@ def main(ssl_loader, valid_loader):
 
             # Log training loss to Wandb
             if config.WANDB and batch_idx % 10 == 0:
-                wandb.log({'Train Loss': train_epoch_loss, 'Epoch': epoch})
+                wandb.log({'Train Loss': train_running_loss /(batch_idx + 1), 'Epoch': epoch})
             
 
         train_epoch_loss = train_running_loss / len(ssl_loader.dataset)
