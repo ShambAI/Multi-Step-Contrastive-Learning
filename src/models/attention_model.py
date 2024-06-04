@@ -12,7 +12,7 @@ class InputEmbeddingPosEncoding(nn.Module):
     def forward(self, x):
         x = self.lin_proj_layer(x)
         x = self.lin_proj_layer1(x)
-        x = self.lin_proj_layer2(x)
+        # x = self.lin_proj_layer2(x)
         x = self.pos_encoder(x)
         return x
 
