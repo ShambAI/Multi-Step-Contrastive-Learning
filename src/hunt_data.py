@@ -388,6 +388,8 @@ class STFTDataset(HARDataset):
 
         # Randomly select 100 file numbers
         selected_nums = random.sample(file_numbers, number_subject)
+
+        print("selected_nums: ", selected_nums)
         
 
         # Loop through the selected file numbers
@@ -405,6 +407,8 @@ class STFTDataset(HARDataset):
 
                 # Randomly select 5 files (or as many as available)
                 selected_files = random.sample(npz_files, num_files_to_select)
+
+                print("selected_files: ", selected_files)
 
                 # Process the selected files
                 for fn in selected_files:
