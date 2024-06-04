@@ -10,6 +10,7 @@ from pytorch_lightning.loggers import WandbLogger
 from torch.utils.data import Subset
 import wandb
 import argparse
+import random
 
 
 def main(ssl_loader, valid_loader):
@@ -158,7 +159,7 @@ if __name__ == "__main__":
                         help='params path with config.yml file',
                         default='configs/harconfig.yml')
     parser.add_argument('-d', '--dataset_path', required=False, type=str,
-                        help='path to dataset.', default='data/FAKE_HUNT2')
+                        help='path to dataset.', default='/ssd4/aleksejl/HUNT4_accelerometer_snippets/')
     args = parser.parse_args()
     config_path = args.params_path
     # Read config
@@ -167,6 +168,15 @@ if __name__ == "__main__":
     
     # Log in to Wandb
     wandb.login(key=config.WANDB_KEY)
+
+    # Set all seeds:
+    torch.manual_seed(config.SEED)
+    torch.cuda.manual_seed(config.SEED)
+    torch.cuda.manual_seed_all(config.SEED)
+    np.random.seed(config.SEED)
+    random.seed(config.SEED)
+    torch.backends.cudnn.benchmark = False
+    torch.backends.cudnn.deterministic = True
 
     for ds_args in src.utils.grid_search(config.DATASET_ARGS):
         # Iterate over all model configs if given
@@ -210,7 +220,7 @@ if __name__ == "__main__":
                 dataset=valid_ds,
                 batch_size=args['batch_size'],
                 sampler=SequentialRandomSampler(valid_ds, args['batch_size']),
-                shuffle = False,
+                # shuffle = False,
                 num_workers=config.NUM_WORKERS,
             )
 

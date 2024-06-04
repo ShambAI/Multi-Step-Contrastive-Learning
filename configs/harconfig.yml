@@ -24,13 +24,13 @@ CLASSES:
 
 # --- Information about data
 # Path to training dataset 
-TRAIN_DATA: /path/to/harth_v1.2/
+TRAIN_DATA: /ssd4/aleksejl/HUNT4_accelerometer_snippets/
 
 # Amount of training data used for validation (between 0 and 1)
 VALID_SPLIT: 0.1
 # Randomly selected test subjects (Not used during LOSO!)
 TEST_SUBJECTS: [S027.csv,S023.csv,S008.csv,S019.csv,S006.csv,S024.csv, S010.csv,  S014.csv,  S017.csv,  S020.csv]
-SEED: 42
+SEED: 77
 
 NUM_WORKERS: 10  # Num of workers for data loading
 NUM_GPUS: [0]  # How many/which GPUs to use
@@ -46,7 +46,7 @@ DATASET_ARGS:
   padding_val: [0.0]
   # 50==1sec ==> 3000==60sec==1min
   sequence_length: [15000]  # Window size (in samples) fed into the model
-  frame_shift: [300]  # How much to shift a window (in samples) null=same as sequence_length
+  frame_shift: [5000]  # How much to shift a window (in samples) null=same as sequence_length
   normalize: [True]  # Whether to normalize the training data
   norm_params_path: [params/norm_params/HUNT4/normalization_params_STFT_feats156_seqlen599/]
   n_fft: [50]  # Size of Fourier transform (in samples)
@@ -67,27 +67,20 @@ ALGORITHM_ARGS:
   margin_thresh: [0.4]
   mse_lambda: [0.01]
   batch_size: [4]
-  loss: [LS_MARGIN_LOSS]
-  optimizer: [Adam]
+
+  # MARGIN_LOSS, LS_MARGIN_LOSS, LS_HATCL_LOSS, HATCL_LOSS
+  loss: [HATCL_LOSS]
+  optimizer: [AdamW]
   weight_decay: [0.0]
 #   output_activation: [softmax]
 #   metrics: [[F1Score,Accuracy,Precision,Recall]]  # Which metrics to log
-  lr: [1e-3]
+  lr: [1e-4]
   lr_scheduler: [ExponentialTFDecay]
   number_subject: [10]
   number_sample: [1]
   total_subjects: [30000]
-    #lr_scheduler: [LinearWUSchedule]
+  # lr_scheduler: [LinearWUSchedule]
   # Architecture params
-#   upstream_algorithm: [TransformerEncoderNetwork]
-#   upstream_model_path: [params/selfPAB_upstream/upstream_model.ckpt]
-#   rmv_upstream_layers: [4]  # remove the last 4 layers: 3metrics+1pred heads
-#   weighted_sum_layer: [null]  # None=no weighted sum
-#   fine_tune_step: [0.75]  # when start fine tune in %
-#   dropout: [0.1]  # Dropout probability
-#   n_prediction_head_layers: [2]  # Num layers of MLP at end of model
-#   dim_prediction_head: [1028]  # Dim of hidden layers of MLP at end od model
-
 
 STORE_CMATS: True  # Store test cmats on disk
 SKIP_FINISHED_ARGS: False

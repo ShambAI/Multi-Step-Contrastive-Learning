@@ -6,13 +6,13 @@ class InputEmbeddingPosEncoding(nn.Module):
         super(InputEmbeddingPosEncoding, self).__init__()
         self.lin_proj_layer = nn.Linear(in_features=156, out_features=1500)
         self.lin_proj_layer1 = nn.Linear(in_features=1500, out_features=feature_dim)
-        # self.lin_proj_layer2 = nn.Linear(in_features=500, out_features=256)
+        self.lin_proj_layer2 = nn.Linear(in_features=500, out_features=256)
         self.pos_encoder = AbsolutePositionalEncoding()
 
     def forward(self, x):
         x = self.lin_proj_layer(x)
         x = self.lin_proj_layer1(x)
-        # x = self.lin_proj_layer2(x)
+        x = self.lin_proj_layer2(x)
         x = self.pos_encoder(x)
         return x
 
@@ -67,6 +67,6 @@ class TransformerEncoderNetwork(nn.Module):
         
     def forward(self, x):
         x = self.emb(x)
-        x = self.transformer_encoder(x)
+        # x = self.transformer_encoder(x)
         
         return x
