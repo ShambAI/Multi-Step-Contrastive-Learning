@@ -355,7 +355,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
 
             for batch in valid_balanced_dataloader:
                 images, labeli = batch
-                images = images.view(-1, 1, images.shape[-1])
+                images = images.view(-1, 1, images.shape[-1]).to(device)
 
             tsne_plot, time_features = visualize_tsne(images, labeli, class_dict, attn_model)
 
