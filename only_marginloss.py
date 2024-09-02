@@ -172,7 +172,7 @@ def main(ssl_loader, valid_loader):
 
             # Log training loss to Wandb
             if config.WANDB and batch_idx % 10 == 0:
-                wandb.log({'Train Loss': train_running_loss /(batch_idx + 1)})
+                wandb.log({'Train Loss': train_running_loss/(batch_idx + 1), 'Epoch': epoch})
 
         train_epoch_loss = train_running_loss / len(ssl_loader.dataset)
         print(f"Epoch {epoch + 1}/{num_epochs}, Train Loss: {train_epoch_loss:.4f}")
@@ -203,7 +203,7 @@ def main(ssl_loader, valid_loader):
             print(f"Epoch {epoch + 1}/{num_epochs}, Validation Loss: {valid_epoch_loss:.4f}")
 
             if config.WANDB:
-                wandb.log({'Validation Loss': valid_epoch_loss})
+                wandb.log({'Validation Loss': valid_epoch_loss, 'Epoch': epoch})
 
             # Optionally save the model every config.SAVE_INTERVAL epochs
             if (epoch + 1) % config.SAVE_INTERVAL == 0 and valid_epoch_loss < best_val_loss:
