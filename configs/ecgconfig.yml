@@ -39,7 +39,7 @@ NUM_GPUS: [0]  # How many/which GPUs to use
 WANDB: True
 WANDB_KEY: '97d81dddbca83b1902e24ed795e1ccab52c29943'
 
-seeds: [42, 53, 64, 75, 86, 97, 108, 123, 653, 543]
+seeds: [42, 53, 64, 75, 86]
 baselines: [vanilla_cl, double_cl, triplet, tnc, cpc, monoselfPAB, reconstruction]
 
 output_dir: output/ecg/
@@ -62,7 +62,7 @@ ALGORITHM: DownstreamMLP
 # Arguments for classifier
 # (all given as lists in case to perform a GridSearch)
 ALGORITHM_ARGS:
-  epochs: [200]
+  epochs: [500]
   margin: [5]
   feature_dim: [252]
   out_features: [32]
