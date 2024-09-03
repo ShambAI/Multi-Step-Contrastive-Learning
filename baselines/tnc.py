@@ -235,6 +235,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
     time_stamp = 952
 
     disc_model = Discriminator(args['out_features'], device)
+    disc_model.to(device)
     cluster_metrics = []
     for epoch in range(num_epochs):
         # Training phase
@@ -259,8 +260,8 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
             
             x_p = torch.transpose(x_p, 2, 1)
             x_n = torch.transpose(x_n, 2, 1)
-              
-            x_t = np.repeat(x_t, mc_sample, axis=0)
+            
+            x_t = x_t.repeat(mc_sample, 1, 1)
             
             neighbors = torch.ones((len(x_p)*window_size)).to(device)
             non_neighbors = torch.zeros((len(x_n)*window_size)).to(device)
