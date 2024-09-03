@@ -74,7 +74,7 @@ def visualize_tsne(images, labels, class_names, model):
 
     # Standardize the data before applying t-SNE
     scaler = StandardScaler()
-    tsne = TSNE(n_components=2, random_state=42)
+    tsne = TSNE(n_components=2, init='pca', learning_rate='auto')
 
     # Standardize model features before applying t-SNE
     standardized_model_features = scaler.fit_transform(model_features.view(-1, model_features.size(-1)).cpu().numpy())
