@@ -13,7 +13,7 @@ import wandb
 import argparse
 import random
 import math
-import pickle
+from accelerate import Accelerator
 from statsmodels.tsa.stattools import adfuller
 
 
@@ -158,7 +158,7 @@ def visualize_tsne(images, labels, class_names, model):
         indices = labels == i
         plt.scatter(reduced_features_model[indices, 0], reduced_features_model[indices, 1], label=class_names[i])
 
-    plt.title('t-SNE Visualization of Vanilla CL Features')
+    plt.title('t-SNE Visualization of TNC Algorithm Features')
     plt.xlabel('t-SNE Component 1')
     plt.ylabel('t-SNE Component 2')
     plt.legend()
@@ -195,19 +195,21 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
     # Wandb setup
     if config.WANDB:
         ds_name = os.path.realpath(ds_path).split('/')[-1]
-        proj_name = 'Harth_cl_TRAIN_' + config.PROJ_NAME + ds_name
+        proj_name = 'Dynamic_CL' + ds_name + str(seed)
+        run_name = 'tnc_algorithm'
+
         wandb_logger = WandbLogger(project=proj_name)
         
         # Initialize Wandb
-        wandb.init(project=proj_name)
+        wandb.init(project=proj_name, name=run_name)
         wandb.watch(attn_model, log='all', log_freq=100)
 
         # Update Wandb config
         wandb.config.update(ds_args)
         wandb.config.update(args)
         wandb.config.update({
-            'Algorithm': 'VANILLA CONTRASTIVE LOSS',
-            'Dataset': 'HUNT',
+            'Algorithm': f'{run_name}',
+            'Dataset': f'{ds_name}',
             'Train_DS_size': len(train_ds),
             'Batch_Size': args["batch_size"],
             'Epochs': args["epochs"],
@@ -215,6 +217,8 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
             'Seed': seed
 
         })
+        wandb.run.name = run_name
+        wandb.run.save()
 
     # Move model to device
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -237,7 +241,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
     disc_model = Discriminator(args['out_features'], device)
     disc_model.to(device)
     cluster_metrics = []
-    for epoch in range(num_epochs):
+    for epoch in range(1, num_epochs):
         # Training phase
         attn_model.train()  # Set the model to training mode
         train_running_loss = 0.0
@@ -310,8 +314,11 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
             slh_index2 = silhouette_score(time_features.cpu().detach().squeeze(), labeli)
             print(f"DB Index: {db_index2:.2f}, CH Index: {ch_index2:.2f}, SLH Index: {slh_index2:.2f}")
 
-            cluster_metrics.append(0.33*((1/db_index2)+math.log(ch_index2 + 1) + 0.5*(slh_index2+1)))
-            if config.WANDB:
+            try:
+                cluster_metrics.append(0.33*((1/db_index2)+math.log(ch_index2 + 1) + 0.5*(slh_index2+1)))
+            except:
+                cluster_metrics.append(1)
+
                 wandb.log({'Davies-Bouldin Index Features': db_index2})
                 wandb.log({'Calinski Harabasz Index Features': ch_index2})
                 wandb.log({"Silhouette Index Features": slh_index2})
@@ -341,8 +348,8 @@ if __name__ == "__main__":
                         default='configs/harthconfig.yml')
     parser.add_argument('-d', '--dataset_path', required=False, type=str,
                         help='path to dataset.', default='data/harth')
-    parser.add_argument('-s', '--seed_value', required=True, type=str,
-                        help='seed value.', default='/')
+    parser.add_argument('-s', '--seed_value', required=False, type=int,
+                        help='seed value.', default=42)
     args = parser.parse_args()
     config_path = args.params_path
     # Read config

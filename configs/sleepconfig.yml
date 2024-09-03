@@ -39,8 +39,9 @@ NUM_GPUS: [0]  # How many/which GPUs to use
 WANDB: True
 WANDB_KEY: '97d81dddbca83b1902e24ed795e1ccab52c29943'
 
-seeds: [42, 53, 64, 75, 86, 97, 108, 123, 653, 543, 22, 33, 44, 64, 78, 99, 900, 87, 11, 23]
-baselines: [triplet, tnc, cpc, double_cl, monoselfPAB, reconstruction, vanilla_cl]
+seeds: [42, 53, 64, 75, 86, 97, 108, 123, 653, 543]
+
+baselines: [vanilla_cl, double_cl, triplet, tnc, cpc, monoselfPAB, reconstruction]
 
 output_dir: output/sleepeeg/
 

@@ -47,14 +47,28 @@ def main(config):
             print(f"Baseline: {baseline}, Seed: {seed}, Result: {result}")
         
         # Calculate average and standard deviation
-        avg_dbi_result = np.mean(dbis)
-        std_dbi_result = np.std(dbis)
+        try:
+            avg_dbi_result = np.mean(dbis)
+            std_dbi_result = np.std(dbis)
+        except:
+            avg_dbi_result = 0
+            std_dbi_result = 0
 
-        avg_chi_result = np.mean(chis)
-        std_chi_result = np.std(chis)
+        try:
+            avg_chi_result = np.mean(chis)
+            std_chi_result = np.std(chis)
+        except:
+            avg_chi_result = 0
+            std_chi_result = 0
 
-        avg_scs_result = np.mean(scs)
-        std_scs_result = np.std(scs)
+        try:
+            avg_scs_result = np.mean(scs)
+            std_scs_result = np.std(scs)
+        except:
+            avg_scs_result = 0
+            std_scs_result = 0
+
+        
         
         # Save results to file
         output_file = os.path.join(output_dir, f"{baseline}_results.txt")
