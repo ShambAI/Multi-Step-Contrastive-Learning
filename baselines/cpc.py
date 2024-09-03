@@ -14,7 +14,6 @@ import wandb
 import argparse
 import random
 import math
-from accelerate import Accelerator
 
 
 from sklearn.metrics import silhouette_score
@@ -171,18 +170,17 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
 
     cluster_metrics = []
     acc = 0
-    for epoch in range(1, num_epochs):
+    for epoch in tqdm(range(1, num_epochs)):
         # Training phase
         attn_model.train()  # Set the model to training mode
         train_running_loss = 0.0
 
-        for batch_idx, (time_series, labels) in enumerate(tqdm(train_loader)):
+        for batch_idx, (time_series, _) in enumerate(train_loader):
             time_series = time_series.to(device) 
 
             # Create a mask tensor with the same shape as the original tensor
             n_size = time_series.shape[1]//2
             sequence_length = time_series.shape[1]
-            
             
             # Encode the entire sequence
             encodings = attn_model(time_series)  # [batch_size, seq_len, encoding_size]
@@ -226,7 +224,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
 
 
         train_epoch_loss = train_running_loss / len(train_loader.dataset)
-        print(f"Epoch {epoch + 1}/{num_epochs}, Train Loss: {train_epoch_loss:.4f}")
+        # print(f"Epoch {epoch + 1}/{num_epochs}, Train Loss: {train_epoch_loss:.4f}")
 
         # Log training loss to Wandb
         if config.WANDB and batch_idx % 10 == 0:
@@ -234,13 +232,12 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
 
         if epoch % config.VALID_INTERVAL == 0:
 
-            for batch_idx, (time_series, labels) in enumerate(tqdm(valid_loader)):
+            for batch_idx, (time_series, _) in enumerate(valid_loader):
                 time_series = time_series.to(device) 
 
                 # Create a mask tensor with the same shape as the original tensor
                 n_size = time_series.shape[1]//2
                 sequence_length = time_series.shape[1]
-                
                 
                 # Encode the entire sequence
                 encodings = attn_model(time_series)  # [batch_size, seq_len, encoding_size]
@@ -282,7 +279,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
             db_index2 = davies_bouldin_score(time_features.cpu().detach().squeeze(), labeli)
             ch_index2 = calinski_harabasz_score(time_features.cpu().detach().squeeze(), labeli)
             slh_index2 = silhouette_score(time_features.cpu().detach().squeeze(), labeli)
-            print(f"DB Index: {db_index2:.2f}, CH Index: {ch_index2:.2f}, SLH Index: {slh_index2:.2f}")
+            # print(f"DB Index: {db_index2:.2f}, CH Index: {ch_index2:.2f}, SLH Index: {slh_index2:.2f}")
 
             try:
                 cluster_metrics.append(0.33*((1/db_index2)+math.log(ch_index2 + 1) + 0.5*(slh_index2+1)))
