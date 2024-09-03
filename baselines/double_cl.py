@@ -174,7 +174,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
     mask_fraction = float(args['mask_fraction'])
     l = float(args['mse_lambda'])
 
-    cluster_metrics = []
+    best_cluster_metrics = -float('inf')
     for epoch in tqdm(range(1, num_epochs)):
         # Training phase
         attn_model.train()  # Set the model to training mode
@@ -247,7 +247,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
                 masked_features = masked_features.reshape(-1, masked_features.size(-1))
                 time_series = time_series.reshape(-1, time_series.size(-1))
                 
-                linear_layer = nn.Linear(in_features=time_series.shape[-1], out_features=32)
+                linear_layer = nn.Linear(in_features=time_series.shape[-1], out_features=32).to(device)
 
                 scaled_timeseries = linear_layer(time_series.float())
                 # Compute training loss
@@ -278,23 +278,25 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
             # print(f"DB Index: {db_index2:.2f}, CH Index: {ch_index2:.2f}, SLH Index: {slh_index2:.2f}")
 
             try:
-                cluster_metrics.append(0.33*((1/db_index2)+math.log(ch_index2 + 1) + 0.5*(slh_index2+1)))
+                cluster_metrics = 0.33*((1/db_index2)+math.log(ch_index2 + 1) + 0.5*(slh_index2+1))
             except:
-                cluster_metrics.append(1)
+                cluster_metrics = 0
 
+            if config.WANDB:
                 wandb.log({'Validation Loss': valid_epoch_loss, 'Epoch': epoch})
                 wandb.log({'Davies-Bouldin Index Features': db_index2})
                 wandb.log({'Calinski Harabasz Index Features': ch_index2})
                 wandb.log({"Silhouette Index Features": slh_index2})
-                wandb.log({"Joint cluster metrics": 0.33*((1/db_index2)+math.log(ch_index2 + 1) + 0.5*(slh_index2+1))})
+                wandb.log({"Joint cluster metrics": cluster_metrics})
                 wandb.log({"t-SNE": wandb.Image(tsne_plot)})
                 tsne_plot.close()
 
             # Optionally save the model every config.SAVE_INTERVAL epochs
-            if (epoch + 1) % config.SAVE_INTERVAL == 0 and db_index2 < best_dbi and slh_index2 > best_sc and ch_index2 > best_chi:
+            if cluster_metrics > best_cluster_metrics:
                 best_dbi = db_index2 
                 best_sc = slh_index2
                 best_chi = ch_index2
+                best_cluster_metrics = cluster_metrics
                 torch.save(attn_model.state_dict(), f'models/doubleCL_model_epoch_{epoch + 1}.pth')
 
     if config.WANDB:

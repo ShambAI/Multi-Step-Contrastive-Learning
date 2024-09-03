@@ -1644,3 +1644,4 @@ Traceback (most recent call last):
   File "/Users/shamba/anaconda3/lib/python3.11/subprocess.py", line 571, in run
     raise CalledProcessError(retcode, process.args,
 subprocess.CalledProcessError: Command '('/Users/shamba/anaconda3/bin/python', '-c', 'import os; print(os.umask(22))')' returned non-zero exit status 1.
+2024-09-03 22:15:57,858 WARNING FileStreamThread:53299 [file_stream.py:request_with_retry():674] requests_with_retry encountered retryable exception: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')). func: <bound method Session.post of <requests.sessions.Session object at 0x11dbe3c90>>, args: ('https://api.wandb.ai/files/kazeem/Dynamic_CLharth42/cztcz7mb/file_stream',), kwargs: {'json': {'complete': False, 'failed': False, 'dropped': 0, 'uploaded': []}}
