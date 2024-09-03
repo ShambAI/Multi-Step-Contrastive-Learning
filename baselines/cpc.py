@@ -74,7 +74,7 @@ def visualize_tsne(images, labels, class_names, model):
 
     # Standardize the data before applying t-SNE
     scaler = StandardScaler()
-    tsne = TSNE(n_components=2, init='pca', learning_rate='auto')
+    tsne = TSNE(n_components=2, init='random', learning_rate='auto')
 
     # Standardize model features before applying t-SNE
     standardized_model_features = scaler.fit_transform(model_features.view(-1, model_features.size(-1)).cpu().numpy())
@@ -293,6 +293,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
                 wandb.log({"Silhouette Index Features": slh_index2})
                 wandb.log({"Joint cluster metrics": 0.33*((1/db_index2)+math.log(ch_index2 + 1) + 0.5*(slh_index2+1))})
                 wandb.log({"t-SNE": wandb.Image(tsne_plot)})
+                tsne_plot.close()
 
             # Optionally save the model every config.SAVE_INTERVAL epochs
             if (epoch + 1) % config.SAVE_INTERVAL == 0 and db_index2 < best_dbi and slh_index2 > best_sc and ch_index2 > best_chi:

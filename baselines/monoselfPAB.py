@@ -288,7 +288,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
 
 
         train_epoch_loss = train_running_loss / len(train_loader.dataset)
-        print(f"Epoch {epoch + 1}/{num_epochs}, Train Loss: {train_epoch_loss:.4f}")
+        # print(f"Epoch {epoch + 1}/{num_epochs}, Train Loss: {train_epoch_loss:.4f}")
 
         # Log training loss to Wandb
         if config.WANDB and batch_idx % 10 == 0:
@@ -381,6 +381,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
                 wandb.log({"Silhouette Index Features": slh_index2})
                 wandb.log({"Joint cluster metrics": 0.33*((1/db_index2)+math.log(ch_index2 + 1) + 0.5*(slh_index2+1))})
                 wandb.log({"t-SNE": wandb.Image(tsne_plot)})
+                tsne_plot.close()
 
             # Optionally save the model every config.SAVE_INTERVAL epochs
             if (epoch + 1) % config.SAVE_INTERVAL == 0 and db_index2 < best_dbi and slh_index2 > best_sc and ch_index2 > best_chi:
