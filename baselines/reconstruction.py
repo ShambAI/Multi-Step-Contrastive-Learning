@@ -196,7 +196,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
             masked_features = masked_features.reshape(-1, masked_features.size(-1))
             time_series = time_series.reshape(-1, time_series.size(-1))
             
-            linear_layer = nn.Linear(in_features=time_series.shape[-1], out_features=32)
+            linear_layer = nn.Linear(in_features=time_series.shape[-1], out_features=32).to(device)
 
             scaled_timeseries = linear_layer(time_series.float())
 
@@ -242,7 +242,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
                 masked_features = masked_features.reshape(-1, masked_features.size(-1))
                 time_series = time_series.reshape(-1, time_series.size(-1))
                 
-                linear_layer = nn.Linear(in_features=time_series.shape[-1], out_features=32)
+                linear_layer = nn.Linear(in_features=time_series.shape[-1], out_features=32).to(device)
 
                 scaled_timeseries = linear_layer(time_series.float())
                 # Compute training loss
