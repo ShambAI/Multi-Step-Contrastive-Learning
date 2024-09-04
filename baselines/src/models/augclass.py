@@ -23,13 +23,15 @@ class jitter():
     def __init__(self, sigma=0.3) -> None:
         self.sigma = sigma
     def __call__(self,x):
-        return x + torch.normal(mean=0., std=self.sigma, size=x.shape)
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        return x + torch.normal(mean=0., std=self.sigma, size=x.shape).to(device)
 
 class scaling():
     def __init__(self, sigma=0.5) -> None:
         self.sigma = sigma
     def __call__(self,x):
-        factor = torch.normal(mean=1., std=self.sigma, size=(x.shape[0], x.shape[2]))
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        factor = torch.normal(mean=1., std=self.sigma, size=(x.shape[0], x.shape[2])).to(device)
         res = torch.multiply(x, torch.unsqueeze(factor, 1))
         return res
 

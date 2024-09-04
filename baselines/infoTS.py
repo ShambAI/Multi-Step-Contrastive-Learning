@@ -175,7 +175,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
     best_cluster_metrics = -float('inf')
     temporal_unit = 0
     max_train_length = 500
-    aug = AutoAUG(aug_p1=0.2,aug_p2=0.2,used_augs=None)
+    aug = AutoAUG(aug_p1=0.2,aug_p2=0.2,used_augs=None, device=device)
     t0 = 2.0
     t1 = 0.1
 

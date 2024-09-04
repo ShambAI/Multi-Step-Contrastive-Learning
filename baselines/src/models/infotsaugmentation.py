@@ -35,7 +35,7 @@ class AutoAUG(Module):
     def __init__(self, aug_p1=0.2, aug_p2 = 0.0, used_augs=None, device=None, dtype=None) -> None:
         super(AutoAUG,self).__init__()
         factory_kwargs = {'device': device, 'dtype': dtype}
-
+        self.device = device
         all_augs = [subsequence(),cutout(), jitter(), scaling(), time_warp(), window_slice(), window_warp()]
 
         if used_augs is not None:
@@ -45,7 +45,7 @@ class AutoAUG(Module):
                     self.augs.append(all_augs[i])
         else:
             self.augs = all_augs
-        self.weight = Parameter(torch.empty((2,len(self.augs)), **factory_kwargs))
+        self.weight = Parameter(torch.empty((2,len(self.augs)), **factory_kwargs)).to(device)
         self.reset_parameters()
         self.aug_p1 = aug_p1
         self.aug_p2 = aug_p2
@@ -56,7 +56,7 @@ class AutoAUG(Module):
             bias = bias + 0.0001  # If bias is 0, we run into problems
             eps = (bias - (1 - bias)) * torch.rand(self.weight.size()) + (1 - bias)
             gate_inputs = torch.log(eps) - torch.log(1 - eps)
-            gate_inputs = gate_inputs
+            gate_inputs = gate_inputs.to(self.device)
             gate_inputs = (gate_inputs + self.weight) / temperature
             # para = torch.sigmoid(gate_inputs)
             para = torch.softmax(gate_inputs,-1)
