@@ -8,7 +8,8 @@ import time
 from torch.nn.functional import interpolate
 
 def totensor(x):
-    return torch.from_numpy(x).type(torch.FloatTensor)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    return torch.from_numpy(x).type(torch.FloatTensor).to(device)
 
 def npcutout(x,temporal_unit=0):
     ts_l = x.size(1)
@@ -71,12 +72,14 @@ def cutout(ts, perc=0.1):
 
 def jitter(x, sigma=0.3):
     # https://arxiv.org/pdf/1706.00527.pdf
-    return x + torch.normal(mean=0., std=sigma, size=x.shape)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    return x + torch.normal(mean=0., std=sigma, size=x.shape).to(device)
 
 
 def scaling(x, sigma=0.5):
     # https://arxiv.org/pdf/1706.00527.pdf
-    factor = torch.normal(mean=1., std=sigma, size=(x.shape[0], x.shape[2]))
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    factor = torch.normal(mean=1., std=sigma, size=(x.shape[0], x.shape[2])).to(device)
     res = torch.multiply(x, torch.unsqueeze(factor,1))
     return res
 

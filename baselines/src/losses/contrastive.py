@@ -566,14 +566,15 @@ def local_infoNCE(z1, z2, pooling='max',temperature=1.0, k = 16):
     labels = torch.cat([labels,torch.zeros(1,k-1)],0)
     labels = torch.cat([torch.zeros(k,1),labels],-1)
 
-    pos_labels = labels
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    pos_labels = labels.to(device)
     pos_labels[k-1,k-2]=1.0
 
 
     neg_labels = labels.T + labels + torch.eye(k)
     neg_labels[0,2]=1.0
     neg_labels[-1,-3]=1.0
-    neg_labels = neg_labels
+    neg_labels = neg_labels.to(device)
 
 
     similarity_matrix = similarity_matrices[0]
@@ -606,14 +607,14 @@ def global_infoNCE(z1, z2, pooling='max',temperature=1.0):
     return InfoNCE(z1,z2,temperature)
 
 def InfoNCE(z1, z2, temperature=1.0):
-
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     batch_size = z1.size(0)
 
     features = torch.cat([z1, z2], dim=0).squeeze(1)  # 2B x T x C
 
     labels = torch.cat([torch.arange(batch_size) for i in range(2)], dim=0)
     labels = (labels.unsqueeze(0) == labels.unsqueeze(1)).float()
-    labels = labels
+    labels = labels.to(device)
 
     # features = F.normalize(features, dim=1)
 
@@ -623,7 +624,7 @@ def InfoNCE(z1, z2, temperature=1.0):
     # assert similarity_matrix.shape == labels.shape
 
     # discard the main diagonal from both: labels and similarities matrix
-    mask = torch.eye(labels.shape[0], dtype=torch.bool)
+    mask = torch.eye(labels.shape[0], dtype=torch.bool).to(device)
     labels = labels[~mask].view(labels.shape[0], -1)
     similarity_matrix = similarity_matrix[~mask].view(similarity_matrix.shape[0], -1)
     # assert similarity_matrix.shape == labels.shape
@@ -635,7 +636,7 @@ def InfoNCE(z1, z2, temperature=1.0):
     negatives = similarity_matrix[~labels.bool()].view(similarity_matrix.shape[0], -1)
 
     logits = torch.cat([positives, negatives], dim=1)
-    labels = torch.zeros(logits.shape[0], dtype=torch.long)
+    labels = torch.zeros(logits.shape[0], dtype=torch.long).to(device)
     logits = logits / temperature
     logits = -F.log_softmax(logits, dim=-1)
     loss = logits[:,0].mean()

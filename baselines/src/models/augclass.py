@@ -40,9 +40,10 @@ class time_warp():
         self.transform = tsaug.TimeWarp(n_speed_change=n_speed_change, max_speed_ratio=max_speed_ratio)
 
     def __call__(self, x_torch):
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         x = x_torch.cpu().detach().numpy()
         x_tran =  self.transform.augment(x)
-        return totensor(x_tran.astype(np.float32))
+        return totensor(x_tran.astype(np.float32)).to(device)
 
 class magnitude_warp():
 
@@ -50,10 +51,11 @@ class magnitude_warp():
         self.transform = tsaug.TimeWarp(n_speed_change=n_speed_change, max_speed_ratio=max_speed_ratio)
 
     def __call__(self, x_torch):
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         x = x_torch.cpu().detach().numpy()
         x_t = np.transpose(x, (0, 2, 1))
         x_tran =  self.transform.augment(x_t).transpose((0,2,1))
-        return totensor(x_tran.astype(np.float32))
+        return totensor(x_tran.astype(np.float32)).to(device)
 
 
 class window_slice():
