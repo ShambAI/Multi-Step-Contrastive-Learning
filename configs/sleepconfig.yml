@@ -41,7 +41,7 @@ WANDB_KEY: '97d81dddbca83b1902e24ed795e1ccab52c29943'
 
 seeds: [42, 53, 64, 75, 86]
 
-baselines: [vanilla_cl, double_cl, triplet, tnc, cpc, monoselfPAB, reconstruction]
+baselines: [vanilla_cl, double_cl, margin_cl, ts2vec, infoTS, triplet, tnc, cpc, monoselfPAB, reconstruction]
 
 output_dir: output/sleepeeg/
 
@@ -79,6 +79,7 @@ ALGORITHM_ARGS:
 
   # MARGIN_LOSS, LS_MARGIN_LOSS, LS_HATCL_LOSS, HATCL_LOSS
   loss: [LS_HATCL_LOSS]
+  mloss: [LS_MARGIN_LOSS]
   optimizer: [AdamW]
   weight_decay: [0.0]
 #   output_activation: [softmax]

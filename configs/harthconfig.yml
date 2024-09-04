@@ -25,7 +25,7 @@ CLASSES:
 # --- Information about data
 # Path to training dataset 
 TRAIN_DATA: /ssd4/aleksejl/HUNT4_accelerometer_snippets/
-class_count: {0: 1000, 1: 1000, 2: 1000, 3: 1000, 4: 1000, 5: 1000, 6: 1000, 7: 1000, 8: 1000, 9: 1000, 10: 1000, 11: 1000}
+class_count: {0: 1000, 1: 1000, 2: 1000, 3: 1000, 4: 1000, 5: 1000, 6: 1000, 7: 1000, 8: 1000, 9: 1000, 10: 1000, 11: 500}
 class_dict: {
     0: 'walking',
     1: 'running',
@@ -53,7 +53,7 @@ WANDB: True
 WANDB_KEY: '97d81dddbca83b1902e24ed795e1ccab52c29943'
 
 seeds: [42, 53, 64, 75, 86]
-baselines: [vanilla_cl, double_cl, triplet, tnc, cpc, monoselfPAB, reconstruction]
+baselines: [vanilla_cl, double_cl, margin_cl, ts2vec, infoTS, triplet, tnc, cpc, monoselfPAB, reconstruction]
 output_dir: output/harth/
 
 
@@ -93,6 +93,7 @@ ALGORITHM_ARGS:
 
   # MARGIN_LOSS, LS_MARGIN_LOSS, LS_HATCL_LOSS, HATCL_LOSS
   loss: [LS_HATCL_LOSS]
+  mloss: [LS_MARGIN_LOSS]
   optimizer: [AdamW]
   weight_decay: [0.0]
 #   output_activation: [softmax]
