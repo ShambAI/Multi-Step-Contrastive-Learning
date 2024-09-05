@@ -34,7 +34,7 @@ display_batch: 12000
 TEST_SUBJECTS: [S027.csv,S023.csv,S008.csv,S019.csv,S006.csv,S024.csv, S010.csv,  S014.csv,  S017.csv,  S020.csv]
 SEED: 77
 
-NUM_WORKERS: 10  # Num of workers for data loading
+NUM_WORKERS: 4  # Num of workers for data loading
 NUM_GPUS: [0]  # How many/which GPUs to use
 WANDB: True
 WANDB_KEY: '97d81dddbca83b1902e24ed795e1ccab52c29943'
