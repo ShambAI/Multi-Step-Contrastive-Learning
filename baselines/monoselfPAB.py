@@ -500,6 +500,6 @@ if __name__ == "__main__":
     # Load balanced dataset
 
     balanced_dataset = load_balanced_dataset(flattened_data, desired_count_per_class)
-    valid_balanced_dataloader = DataLoader(balanced_dataset, batch_size=config.display_batch, shuffle=False)
+    valid_balanced_dataloader = DataLoader(balanced_dataset, batch_size=config.display_batch, shuffle=False, num_workers=config.NUM_WORKERS)
 
     main(train_loader, valid_loader, valid_balanced_dataloader, seed)

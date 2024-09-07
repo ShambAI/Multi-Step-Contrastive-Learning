@@ -53,7 +53,7 @@ WANDB: True
 WANDB_KEY: '97d81dddbca83b1902e24ed795e1ccab52c29943'
 
 seeds: [42, 53, 64, 75, 86]
-baselines: [vanilla_cl, double_cl, margin_cl, ts2vec, infoTS, triplet, tnc, cpc, monoselfPAB, reconstruction]
+baselines: [tnc, cpc, monoselfPAB, reconstruction, triplet]
 output_dir: output/harth/
 
 
