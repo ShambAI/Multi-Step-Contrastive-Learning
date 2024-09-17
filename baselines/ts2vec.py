@@ -174,7 +174,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
     best_cluster_metrics = -float('inf')
     temporal_unit = 0
     max_train_length = 500
-    for epoch in tqdm(range(1, num_epochs)):
+    for epoch in tqdm(range(1, num_epochs+1)):
         # Training phase
         attn_model.train()  # Set the model to training mode
         train_running_loss = 0.0
@@ -236,16 +236,27 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
         if epoch % config.VALID_INTERVAL == 0:
 
             for batch in valid_balanced_dataloader:
-                images, labeli = batch
+                images, _ = batch
                 images = images.view(-1, 1, images.shape[-1]).to(device)
 
-            tsne_plot, time_features = visualize_tsne(images, labeli, class_dict, attn_model)
+            # tsne_plot, time_features = visualize_tsne(images, labeli, class_dict, attn_model)
+            attn_model.eval()
+            with torch.no_grad():
+                time_features = attn_model(images)
 
-            # Calculate Davies-Bouldin Index
-            db_index2 = davies_bouldin_score(time_features.cpu().detach().squeeze(), labeli)
-            ch_index2 = calinski_harabasz_score(time_features.cpu().detach().squeeze(), labeli)
-            slh_index2 = silhouette_score(time_features.cpu().detach().squeeze(), labeli)
-            # print(f"DB Index: {db_index2:.2f}, CH Index: {ch_index2:.2f}, SLH Index: {slh_index2:.2f}")
+            try:
+                kmeans = KMeans(n_clusters=len(class_dict), random_state=1, n_init=10).fit(time_features.cpu().detach().squeeze())
+                labeli = kmeans.labels_
+                # Calculate Davies-Bouldin Index
+                db_index2 = davies_bouldin_score(time_features.cpu().detach().squeeze(), labeli)
+                ch_index2 = calinski_harabasz_score(time_features.cpu().detach().squeeze(), labeli)
+                slh_index2 = silhouette_score(time_features.cpu().detach().squeeze(), labeli)
+                print(f"DB Index: {db_index2:.2f}, CH Index: {ch_index2:.2f}, SLH Index: {slh_index2:.2f}")
+            except:
+                db_index2 = 0
+                ch_index2 = 0
+                slh_index2 = 0
+                print(f"DB Index: {db_index2:.2f}, CH Index: {ch_index2:.2f}, SLH Index: {slh_index2:.2f}")
 
             try:
                 cluster_metrics = 0.33*((1/db_index2)+math.log(ch_index2 + 1) + 0.5*(slh_index2+1))
@@ -253,12 +264,16 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
                 cluster_metrics = 0
 
             if config.WANDB:
-                wandb.log({'Davies-Bouldin Index Features': db_index2})
-                wandb.log({'Calinski Harabasz Index Features': ch_index2})
-                wandb.log({"Silhouette Index Features": slh_index2})
-                wandb.log({"Joint cluster metrics": cluster_metrics})
-                wandb.log({"t-SNE": wandb.Image(tsne_plot)})
-                tsne_plot.close()
+               wandb.log({
+                    'Epoch': epoch,
+                    'Davies-Bouldin Index Features': db_index2,
+                    'Calinski Harabasz Index Features': ch_index2,
+                    'Silhouette Index Features': slh_index2,
+                    'Joint cluster metrics': cluster_metrics,
+                    # 't-SNE': wandb.Image(tsne_plot)
+                })
+               
+            # tsne_plot.close()
 
             # Optionally save the model every config.SAVE_INTERVAL epochs
             if cluster_metrics > best_cluster_metrics:
@@ -266,7 +281,10 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
                 best_sc = slh_index2
                 best_chi = ch_index2
                 best_cluster_metrics = cluster_metrics
-                torch.save(attn_model.state_dict(), f'models/cpc_model_epoch_{epoch + 1}.pth')
+            
+            if epoch % config.SAVE_INTERVAL == 0:
+                torch.save(attn_model.state_dict(), f'models/{ds_name + str(seed)}_ts2vec_model_epoch_{epoch}.pth')
+
     
     if config.WANDB:
         wandb.finish()
@@ -379,7 +397,7 @@ if __name__ == "__main__":
     # Load balanced dataset
 
     balanced_dataset = load_balanced_dataset(flattened_data, desired_count_per_class)
-    valid_balanced_dataloader = DataLoader(balanced_dataset, batch_size=config.display_batch, shuffle=False, num_workers=config.NUM_WORKERS,)
+    valid_balanced_dataloader = DataLoader(balanced_dataset, batch_size=config.display_batch, shuffle=False, num_workers=config.NUM_WORKERS)
 
 
     main(train_loader, valid_loader, valid_balanced_dataloader, seed)

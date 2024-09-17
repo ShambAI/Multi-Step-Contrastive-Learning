@@ -2,7 +2,7 @@
 ## COMMAND: [ python, predict.py ]
 # Train command
 
-SAVE_INTERVAL: 5
+SAVE_INTERVAL: 50
 VALID_INTERVAL: 5
 PATIENCE: 5
 TRAIN_COMMAND: [ python, train.py ]
@@ -53,7 +53,7 @@ WANDB: True
 WANDB_KEY: '97d81dddbca83b1902e24ed795e1ccab52c29943'
 
 seeds: [42, 53, 64, 75, 86]
-baselines: [tnc, cpc, monoselfPAB, reconstruction, triplet]
+baselines: [vanilla_cl, double_cl, margin_cl, ts2vec, infoTS, triplet, tnc, cpc, monoselfPAB, reconstruction]
 output_dir: output/harth/
 
 
