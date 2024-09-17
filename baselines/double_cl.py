@@ -281,12 +281,12 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
                 db_index2 = davies_bouldin_score(time_features.cpu().detach().squeeze(), labeli)
                 ch_index2 = calinski_harabasz_score(time_features.cpu().detach().squeeze(), labeli)
                 slh_index2 = silhouette_score(time_features.cpu().detach().squeeze(), labeli)
-                print(f"DB Index: {db_index2:.2f}, CH Index: {ch_index2:.2f}, SLH Index: {slh_index2:.2f}")
+                # print(f"DB Index: {db_index2:.2f}, CH Index: {ch_index2:.2f}, SLH Index: {slh_index2:.2f}")
             except:
                 db_index2 = 0
                 ch_index2 = 0
                 slh_index2 = 0
-                print(f"DB Index: {db_index2:.2f}, CH Index: {ch_index2:.2f}, SLH Index: {slh_index2:.2f}")
+                # print(f"DB Index: {db_index2:.2f}, CH Index: {ch_index2:.2f}, SLH Index: {slh_index2:.2f}")
 
             try:
                 cluster_metrics = 0.33*((1/db_index2)+math.log(ch_index2 + 1) + 0.5*(slh_index2+1))
