@@ -191,7 +191,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
     if config.WANDB:
         ds_name = os.path.realpath(ds_path).split('/')[-1]
         proj_name = 'Dynamic_CL' + ds_name + str(seed)
-        run_name = 'margin_cl2'
+        run_name = 'margin_cl'
 
         wandb_logger = WandbLogger(project=proj_name)
         
