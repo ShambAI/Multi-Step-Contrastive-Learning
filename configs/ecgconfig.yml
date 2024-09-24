@@ -25,8 +25,9 @@ CLASSES:
 # --- Information about data
 # Path to training dataset 
 TRAIN_DATA: /ssd4/aleksejl/HUNT4_accelerometer_snippets/
-class_count: {0: 900, 1: 900, 2: 450}
-class_dict: {0: "AFIB", 1: "AFL", 2: "J"}
+class_count: {0: 1577, 1: 972, 2: 459, 3: 1467}
+class_dict: {0: "AFIB", 1: "AFL", 2: "J", 3: "N"}
+
 # Amount of training data used for validation (between 0 and 1)
 VALID_SPLIT: 0.2
 display_batch: 12000
@@ -49,7 +50,7 @@ output_dir: output/ecg/
 DATASET: ECG
 DATASET_ARGS:
   #STFT FOR ECG
-  class_to_exclude: [3]
+  class_to_exclude: [7]
   n_fft: [250]
   hop_length: [125]
   win_length: [250]
@@ -63,7 +64,7 @@ ALGORITHM: DownstreamMLP
 # (all given as lists in case to perform a GridSearch)
 ALGORITHM_ARGS:
   epochs: [500]
-  margin: [5]
+  margin: [100]
   feature_dim: [252]
   out_features: [32]
   temperature: [0.5]

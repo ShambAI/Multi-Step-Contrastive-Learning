@@ -126,14 +126,14 @@ class STFTDataset(Dataset):
         self.x_data = x_data
         self.y_data = y_data
         self.seq_length = seq_length
-        self.class_to_exclude = class_to_exclude
+        # self.class_to_exclude = class_to_exclude
         
         # Create a mask that filters out the class_to_exclude
-        mask = self.y_data != self.class_to_exclude
+        # mask = self.y_data != self.class_to_exclude
 
         # Apply the mask to filter the data
-        self.x_data = self.x_data[mask]
-        self.y_data = self.y_data[mask]
+        # self.x_data = self.x_data[mask]
+        # self.y_data = self.y_data[mask]
         
     def __len__(self):
         # Return the number of full sequences in the dataset

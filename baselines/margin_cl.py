@@ -191,7 +191,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
     if config.WANDB:
         ds_name = os.path.realpath(ds_path).split('/')[-1]
         proj_name = 'Dynamic_CL' + ds_name + str(seed)
-        run_name = 'margin_cl'
+        run_name = 'margin_cl2'
 
         wandb_logger = WandbLogger(project=proj_name)
         
@@ -332,10 +332,10 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
                 images, _ = batch
                 images = images.view(-1, 1, images.shape[-1]).to(device)
 
-            # tsne_plot, time_features = visualize_tsne(images, labeli, class_dict, attn_model)
-            attn_model.eval()
-            with torch.no_grad():
-                time_features = attn_model(images)
+            tsne_plot, time_features = visualize_tsne(images, labeli, class_dict, attn_model)
+            # attn_model.eval()
+            # with torch.no_grad():
+            #     time_features = attn_model(images)
 
             try:
                 kmeans = KMeans(n_clusters=len(class_dict), random_state=1, n_init=10).fit(time_features.cpu().detach().squeeze())
@@ -363,10 +363,10 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
                     'Calinski Harabasz Index Features': ch_index2,
                     'Silhouette Index Features': slh_index2,
                     'Joint cluster metrics': cluster_metrics,
-                    # 't-SNE': wandb.Image(tsne_plot)
+                    't-SNE': wandb.Image(tsne_plot)
                 })
                
-            # tsne_plot.close()
+            tsne_plot.close()
 
             # Optionally save the model every config.SAVE_INTERVAL epochs
             if cluster_metrics > best_cluster_metrics:
