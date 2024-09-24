@@ -240,14 +240,15 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
         for batch_idx, (time_series, _) in enumerate(train_loader):
             time_series = time_series.to(device) 
 
-            # Create a mask tensor with the same shape as the original tensor
-            # Apply the mask to the original tensor (e.g., setting masked values to -1)
-            learned_features = attn_model(time_series)
+            # Forward pass
+            masked_features = attn_model(time_series)
 
+            # Flatten features to have dimensions [batch_size * sequence_length, feature dim]
+            masked_features = masked_features.reshape(-1, masked_features.size(-1))
             
             sim_vector = next_element_function(time_series, thresh)
 
-            contrastive_loss = full_margin_loss(learned_features, sim_vector)
+            contrastive_loss = full_margin_loss(masked_features, sim_vector)
             
             train_loss = contrastive_loss
 
