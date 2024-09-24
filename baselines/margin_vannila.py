@@ -273,44 +273,6 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
         if epoch % config.VALID_INTERVAL == 0:
         
             attn_model.eval()  # Set the model to evaluation mode
-            valid_running_loss = 0
-            for batch_idx, (time_series, _) in enumerate(valid_loader):
-                time_series = time_series.to(device)
-
-                # Create a mask tensor with the same shape as the original tensor
-                mask = torch.rand(time_series.shape) < mask_fraction
-                mask = mask.to(device)
-
-                # Apply the mask to the original tensor (e.g., setting masked values to -1)
-                masked_tensor = torch.where(mask, torch.tensor(0), time_series).to(device)
-
-                # Forward pass
-                masked_features = attn_model(masked_tensor)
-
-                # Flatten features to have dimensions [batch_size * sequence_length, feature dim]
-                masked_features = masked_features.reshape(-1, masked_features.size(-1))
-                time_series = time_series.reshape(-1, time_series.size(-1))
-                
-                linear_layer = nn.Linear(in_features=time_series.shape[-1], out_features=32).to(device)
-
-                scaled_timeseries = linear_layer(time_series.float())
-                # Compute training loss
-                
-                sim_vector = next_element_function(time_series, thresh)
-
-                contrastive_loss = full_margin_loss(masked_features, sim_vector)
-                mse_loss = F.mse_loss(scaled_timeseries, masked_features)
-            
-                
-                valid_loss = l*mse_loss + (1-l)*contrastive_loss
-
-                # Update training statistics
-                valid_running_loss += valid_loss.item() * time_series.size(0)
-
-            scheduler.step(valid_running_loss)
-            valid_epoch_loss = valid_running_loss / len(valid_loader.dataset)
-            # print(f"Epoch {epoch + 1}/{num_epochs}, Validation Loss: {valid_epoch_loss:.4f}")
-
             for batch in valid_balanced_dataloader:
                 images, _ = batch
                 images = images.view(-1, 1, images.shape[-1]).to(device)
