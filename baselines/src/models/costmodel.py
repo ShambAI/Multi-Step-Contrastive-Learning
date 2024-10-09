@@ -162,7 +162,7 @@ class CoSTModel(nn.Module):
                         self.instance_contrastive_loss(q_s_phase,k_s_phase)
         loss += (self.alpha * (seasonal_loss/2))
 
-        return self.encoder_q, loss
+        return loss
 
     @torch.no_grad()
     def _momentum_update_key_encoder(self):

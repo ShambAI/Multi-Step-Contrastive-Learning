@@ -157,7 +157,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
         
         # Initialize Wandb
         wandb.init(project=proj_name, name=run_name)
-        wandb.watch(attn_model, log='all', log_freq=100)
+        # wandb.watch(attn_model, log='all', log_freq=100)
     
         # Update Wandb config
         wandb.config.update(ds_args)
@@ -207,7 +207,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
                 x_k = x_k[:, window_offset : window_offset + max_train_length]
 
             
-            extractor, train_loss = attn_model(x_q, x_k)
+            train_loss = attn_model(x_q, x_k)
 
             # Backward pass and optimization
             optimizer.zero_grad()
