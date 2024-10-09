@@ -50,8 +50,8 @@ def initialize_model(seed):
     net = CoSTEncoder(
             input_dims=args['feature_dim'], output_dims=args['out_features'],
             kernels=[1, 2, 4, 8, 16, 32, 64, 128],
-            length=300,
-            hidden_dims=178, depth=10,
+            length=args['sequence_sample'],
+            hidden_dims=args['feature_dim'], depth=10,
         )
     
     model = CoSTModel(
