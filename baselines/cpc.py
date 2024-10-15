@@ -5,7 +5,7 @@ from src.models.attention_model import *
 import torch
 import src.config, src.utils, src.models, src.hunt_data
 from src.losses.contrastive import LS_HATCL_LOSS, HATCL_LOSS
-from src.loader.dataloader import SequentialRandomSampler, FlattenedDataset, STFTDataset, SLEEPDataset
+from src.loader.dataloader import SequentialRandomSampler, FlattenedDataset, STFTDataset, SLEEPDataset, KpiDataset
 from pytorch_lightning.loggers import WandbLogger
 from torch.utils.data import Dataset, DataLoader
 from torch.utils.data import Subset
@@ -385,6 +385,17 @@ if __name__ == "__main__":
                         win_length=ds_args['win_length'],
                         num_labels=ds_args['num_labels']
                     )
+                
+            elif config.DATASET == 'KPI':
+                dataset = KpiDataset(
+                        data_path=ds_path,
+                        n_fft = ds_args['n_fft'],
+                        seq_length=ds_args['seq_length'],
+                        hop_length=ds_args['hop_length'],
+                        win_length=ds_args['win_length'],
+                        num_labels=ds_args['num_labels']
+                    )
+
 
             elif config.DATASET == 'SLEEPEEG':
                 dataset = SLEEPDataset(ds_path, seq_length=ds_args['seq_length'])

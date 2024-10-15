@@ -5,7 +5,7 @@ from src.models.attention_model import *
 import torch
 import src.config, src.utils, src.models, src.hunt_data
 from src.losses.contrastive import LS_HATCL_LOSS, HATCL_LOSS, TripletLoss
-from src.loader.dataloader import SequentialRandomSampler, FlattenedDataset, STFTDataset, SLEEPDataset
+from src.loader.dataloader import SequentialRandomSampler, FlattenedDataset, STFTDataset, SLEEPDataset, KpiDataset
 from pytorch_lightning.loggers import WandbLogger
 from torch.utils.data import Dataset, DataLoader
 from torch.utils.data import Subset
@@ -51,8 +51,8 @@ class Discriminator(torch.nn.Module):
 
 def find_neighours(x, t, window_size):
     
-    T = 119
-    mc_sample_size = 20
+    T = args['sequence_sample']
+    mc_sample_size = args['tnc_window']
     adf = True
     
     if adf:
@@ -78,8 +78,8 @@ def find_neighours(x, t, window_size):
     return x_p, delta
 
 def find_non_neighours(x, t, delta, window_size):
-    T = 119
-    mc_sample_size = 20
+    T = args['sequence_sample']
+    mc_sample_size = args['tnc_window']
     adf = True
     
     if t>T/2:
@@ -234,8 +234,8 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
     # Training and validation loop
     num_epochs = args['epochs']
     w = 0.1
-    window_size = 20
-    time_stamp = 952
+    window_size = args['tnc_window']
+    time_stamp = args['tnc_window']*args['batch_size']
 
     disc_model = Discriminator(args['out_features'], device)
     disc_model.to(device)
@@ -414,6 +414,16 @@ if __name__ == "__main__":
                         win_length=ds_args['win_length'],
                         num_labels=ds_args['num_labels']
                     )
+            elif config.DATASET == 'KPI':
+                dataset = KpiDataset(
+                        data_path=ds_path,
+                        n_fft = ds_args['n_fft'],
+                        seq_length=ds_args['seq_length'],
+                        hop_length=ds_args['hop_length'],
+                        win_length=ds_args['win_length'],
+                        num_labels=ds_args['num_labels']
+                    )
+
 
             elif config.DATASET == 'SLEEPEEG':
                 dataset = SLEEPDataset(ds_path, seq_length=ds_args['seq_length'])

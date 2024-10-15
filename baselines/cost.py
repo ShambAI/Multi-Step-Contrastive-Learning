@@ -8,7 +8,7 @@ import torch
 from src.utils import take_per_row
 import src.config, src.utils, src.models, src.hunt_data
 from src.losses.contrastive import LS_HATCL_LOSS, HATCL_LOSS
-from src.loader.dataloader import SequentialRandomSampler, FlattenedDataset, STFTDataset, SLEEPDataset
+from src.loader.dataloader import SequentialRandomSampler, FlattenedDataset, STFTDataset, SLEEPDataset, KpiDataset
 from pytorch_lightning.loggers import WandbLogger
 from torch.utils.data import Dataset, DataLoader
 from torch.utils.data import Subset
@@ -150,7 +150,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
     # Wandb setup
     if config.WANDB:
         ds_name = os.path.realpath(ds_path).split('/')[-1]
-        proj_name = '1' + ds_name + str(seed)
+        proj_name = 'Dynamic_CL' + ds_name + str(seed)
         run_name = 'CoST'
 
         wandb_logger = WandbLogger(project=proj_name)
@@ -345,6 +345,17 @@ if __name__ == "__main__":
                         win_length=ds_args['win_length'],
                         num_labels=ds_args['num_labels']
                     )
+                
+            elif config.DATASET == 'KPI':
+                dataset = KpiDataset(
+                        data_path=ds_path,
+                        n_fft = ds_args['n_fft'],
+                        seq_length=ds_args['seq_length'],
+                        hop_length=ds_args['hop_length'],
+                        win_length=ds_args['win_length'],
+                        num_labels=ds_args['num_labels']
+                    )
+
 
             elif config.DATASET == 'SLEEPEEG':
                 dataset = SLEEPDataset(ds_path, seq_length=ds_args['seq_length'])

@@ -4,6 +4,7 @@ from torch.utils.data import DataLoader, Dataset, Subset
 import pickle
 import src.config, src.utils
 import einops
+import pandas as pd
 
 
 
@@ -15,6 +16,35 @@ def load_pickle_file(filepath):
 
 def feature_stft(x_train, n_fft = 100, hop_length=50, win_length=100, phase = False, stack_axes = True):
     train_tensor = torch.tensor(x_train).transpose(1,2).reshape(-1, 2).transpose(0,1)
+    
+    x = torch.stft(
+        input=train_tensor,
+        n_fft=n_fft,
+        hop_length=hop_length,
+        win_length=win_length,
+        window=torch.hann_window(win_length),
+        center=False,
+        return_complex=True)  # [num_channels, num_bins, num_frames]
+
+    x_cartesian = src.utils.complex_to_cartesian(x)
+    x_magnitude = src.utils.complex_to_magnitude(x, expand=True)
+
+    x = x_cartesian if phase else x_magnitude
+    if stack_axes:
+        # Stack all spectrograms and put time dim first:
+        # [num_channels, num_bins, num_frames, stft_parts] ->
+        # [num_frames, num_channels x num_bins x stft_parts]
+        x = einops.rearrange(x, 'C F T P -> T (C F P)')  # P=2
+    else:
+        x = einops.rearrange(x, 'C F T P -> T C F P')
+    
+    return x
+
+def feature_kpi(x_train, n_fft = 10, hop_length=5, win_length=10, phase = False, stack_axes = True):
+    
+    
+   
+    train_tensor = torch.tensor(x_train).unsqueeze(1).reshape(1, -1)
     
     x = torch.stft(
         input=train_tensor,
@@ -214,6 +244,47 @@ class SLEEPDataset(Dataset):
         self.y_data = data['labels']
     
         
+        self.seq_length = seq_length
+        
+    def __len__(self):
+        # Return the number of full sequences in the dataset
+        return len(self.x_data) // self.seq_length
+
+    def __getitem__(self, idx):
+        """
+        Returns a tuple (input, label) for the given index.
+        The input is reshaped to (seq_length, features).
+        """
+        start_idx = idx * self.seq_length
+        end_idx = start_idx + self.seq_length
+
+        # Extract the sequence of data and corresponding labels
+        x_seq = self.x_data[start_idx:end_idx]
+        y_seq = self.y_data[start_idx:end_idx]
+
+        return x_seq, y_seq
+    
+
+class KpiDataset(Dataset):
+
+    def __init__(self, data_path, n_fft = 250, hop_length=125, win_length=250, seq_length=500, num_labels=2):
+        """
+        Args:
+            x_data (Tensor): The input features, e.g., from STFT.
+            y_data (Tensor): The corresponding labels, windowed and processed.
+            seq_length (int): The length of each sequence.
+        """
+        
+        
+        df = pd.read_csv(f'{data_path}/train.csv')
+        tensor_data = df['value'].values 
+        tensor_label = df['label'].values  
+        
+        x_data = feature_kpi(tensor_data, n_fft = n_fft, hop_length=hop_length, win_length=win_length)
+        y_data = windowed_labels(labels=tensor_label, num_labels=num_labels, frame_length=n_fft, frame_step=hop_length, kind='argmax')
+
+        self.x_data = x_data
+        self.y_data = y_data
         self.seq_length = seq_length
         
     def __len__(self):
