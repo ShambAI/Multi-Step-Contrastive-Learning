@@ -1,0 +1,48 @@
+[34m[1mwandb[39m[22m: [33mWARNING[39m Calling wandb.run.save without any arguments is deprecated.Changes to attributes are automatically persisted.
+  0%|                                                                                                                                                   | 0/500 [00:00<?, ?it/s]
+
+
+
+
+
+
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [23:08<00:00, 252.38s/it]
+  0%|                                                                                                                                                     | 0/8 [00:00<?, ?it/s]
+(8, 8)
+
+
+
+
+
+
+ 88%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▌                 | 7/8 [18:57<03:44, 224.44s/it]
+(8, 8)
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [24:41<00:00, 261.87s/it]
+
+
+  0%|                                                                                                                                                   | 0/500 [50:43<?, ?it/s]
+Traceback (most recent call last):
+  File "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/soft_ts2vec.py", line 470, in <module>
+    main(train_loader, valid_loader, valid_balanced_dataloader, seed)
+  File "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/soft_ts2vec.py", line 235, in main
+    soft_labels_batch = save_sim_mat(x)
+                        ^^^^^^^^^^^^^^^
+  File "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/soft_ts2vec.py", line 59, in save_sim_mat
+    dist_mat = get_MDTW(X_tr)
+               ^^^^^^^^^^^^^^
+  File "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/soft_ts2vec.py", line 46, in get_MDTW
+    mdtw_dist = dtw(MTS_tr[i], MTS_tr[j])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/tslearn/metrics/dtw_variants.py", line 796, in dtw
+    return _dtw(s1, s2, mask=mask, be=be)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/tslearn/metrics/dtw_variants.py", line 197, in _dtw
+    cum_sum = accumulated_matrix(s1, s2, mask, be=be)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/tslearn/metrics/dtw_variants.py", line 139, in accumulated_matrix
+    cum_sum[i + 1, j + 1] = _local_squared_dist(s1[i], s2[j], be=be)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/tslearn/metrics/dtw_variants.py", line 67, in _local_squared_dist
+    dist += diff * diff
+    ^^^^
+KeyboardInterrupt

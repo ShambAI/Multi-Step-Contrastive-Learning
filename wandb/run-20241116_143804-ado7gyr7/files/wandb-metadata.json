@@ -1,0 +1,44 @@
+{
+    "os": "macOS-14.4.1-arm64-arm-64bit",
+    "python": "3.11.5",
+    "heartbeatAt": "2024-11-16T13:38:05.283956",
+    "startedAt": "2024-11-16T13:38:04.037982",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "-p",
+        "configs/sleepconfig.yml",
+        "-d",
+        "data/sleepeeg/",
+        "-s",
+        "42"
+    ],
+    "state": "running",
+    "program": "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/soft_ts2vec.py",
+    "codePathLocal": "baselines/soft_ts2vec.py",
+    "codePath": "baselines/soft_ts2vec.py",
+    "git": {
+        "remote": "https://github.com/ShambAI/Multi-Step-Contrastive-Learning.git",
+        "commit": "fae06193ac165a7828c24e118bbf74e92ffb788c"
+    },
+    "email": null,
+    "root": "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL",
+    "host": "abdulkazeemsmbp.lan",
+    "username": "shamba",
+    "executable": "/Users/shamba/anaconda3/bin/python",
+    "cpu_count": 10,
+    "cpu_count_logical": 10,
+    "disk": {
+        "/": {
+            "total": 460.4317207336426,
+            "used": 169.3719711303711
+        }
+    },
+    "gpuapple": {
+        "type": "Apple M2 Pro",
+        "vendor": "sppci_vendor_Apple"
+    },
+    "memory": {
+        "total": 16.0
+    }
+}
