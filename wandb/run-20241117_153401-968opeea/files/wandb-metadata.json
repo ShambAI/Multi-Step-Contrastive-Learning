@@ -1,0 +1,44 @@
+{
+    "os": "macOS-14.4.1-arm64-arm-64bit",
+    "python": "3.11.5",
+    "heartbeatAt": "2024-11-17T14:34:02.957690",
+    "startedAt": "2024-11-17T14:34:01.526366",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "-p",
+        "configs/sleepconfig.yml",
+        "-d",
+        "data/sleepeeg/",
+        "-s",
+        "42"
+    ],
+    "state": "running",
+    "program": "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/TimeDRL.py",
+    "codePathLocal": "baselines/TimeDRL.py",
+    "codePath": "baselines/TimeDRL.py",
+    "git": {
+        "remote": "https://github.com/ShambAI/Multi-Step-Contrastive-Learning.git",
+        "commit": "9cfcc39518e15b0317ae57fd31728efa40350d7b"
+    },
+    "email": null,
+    "root": "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL",
+    "host": "Abdul-Kazeems-MacBook-Pro.local",
+    "username": "shamba",
+    "executable": "/Users/shamba/anaconda3/bin/python",
+    "cpu_count": 10,
+    "cpu_count_logical": 10,
+    "disk": {
+        "/": {
+            "total": 460.4317207336426,
+            "used": 172.87141036987305
+        }
+    },
+    "gpuapple": {
+        "type": "Apple M2 Pro",
+        "vendor": "sppci_vendor_Apple"
+    },
+    "memory": {
+        "total": 16.0
+    }
+}

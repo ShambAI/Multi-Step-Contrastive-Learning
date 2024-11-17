@@ -1,0 +1,74 @@
+[34m[1mwandb[39m[22m: [33mWARNING[39m Calling wandb.run.save without any arguments is deprecated.Changes to attributes are automatically persisted.
+  0%|                                                                                                                                                   | 0/500 [00:00<?, ?it/s]/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/loss.py:535: UserWarning: Using a target size (torch.Size([8, 152, 890])) that is different to the input size (torch.Size([8, 299, 1780])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+  0%|                                                                                                                                                   | 0/500 [00:03<?, ?it/s]
+Traceback (most recent call last):
+  File "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/TimeDRL.py", line 435, in <module>
+    main(train_loader, valid_loader, valid_balanced_dataloader, seed)
+  File "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/TimeDRL.py", line 217, in main
+    nn.MSELoss()(x_pred_1, patching(x))
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/loss.py", line 535, in forward
+    return F.mse_loss(input, target, reduction=self.reduction)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/functional.py", line 3338, in mse_loss
+    expanded_input, expanded_target = torch.broadcast_tensors(input, target)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/functional.py", line 76, in broadcast_tensors
+    return _VF.broadcast_tensors(tensors)  # type: ignore[attr-defined]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: The size of tensor a (1780) must match the size of tensor b (890) at non-singleton dimension 2
+torch.Size([8, 300, 178])
+torch.Size([8, 299, 1780])
+torch.Size([8, 300, 1780])
+torch.Size([8, 300, 178])
+I am returning here
+torch.Size([8, 299, 1780])
+tensor([[[ -9.3267,  -6.8828,  -7.0864,  ...,  -1.6894,  23.4630,   3.5040],
+         [ -7.0864,   2.5875,  14.9092,  ...,   3.5040,   3.5040,  18.2696],
+         [ 14.9092,   1.7729,  -5.8645,  ...,  18.2696,  -6.9846,  -0.9766],
+         ...,
+         [-24.1941,  -8.9194,  -8.9194,  ...,  -6.7810,  -6.7810,  -6.7810],
+         [ -8.9194,  -8.9194,  -8.9194,  ...,  -6.7810,  -6.7810,  -6.7810],
+         [ -8.9194,  -8.9194,  -8.9194,  ...,  -6.7810,  -6.7810,  -6.7810]],
+        [[-12.1179,  -2.9590,   8.2462,  ...,  -3.4462,  -5.2000,   2.7897],
+         [  8.2462,   1.0359,  11.5590,  ...,   2.7897,   0.8410,  -5.2000],
+         [ 11.5590,  -5.1026,  -2.6667,  ...,  -5.2000,  -6.5641,   1.6205],
+         ...,
+         [ -8.5128, -34.6256, -34.6256,  ...,   5.5179,   5.5179,   5.5179],
+         [-34.6256, -34.6256, -34.6256,  ...,   5.5179,   5.5179,   5.5179],
+         [-34.6256, -34.6256, -34.6256,  ...,   5.5179,   5.5179,   5.5179]],
+        [[ -6.1648,  -0.1370,  -7.9915,  ...,   9.1788,   6.1648,  40.6879],
+         [ -7.9915,  -3.3336,   8.4481,  ...,  40.6879,  -9.8181,  -4.2469],
+         [  8.4481,  14.0193,  33.9294,  ...,  -4.2469,  -3.8816,  48.1770],
+         ...,
+         [  9.8181, -62.5160, -62.5160,  ...,   1.3243,   1.3243,   1.3243],
+         [-62.5160, -62.5160, -62.5160,  ...,   1.3243,   1.3243,   1.3243],
+         [-62.5160, -62.5160, -62.5160,  ...,   1.3243,   1.3243,   1.3243]],
+        ...,
+        [[-20.1143, -72.3458,  36.1495,  ...,   7.9238,   1.1722,  13.1751],
+         [ 36.1495,  -3.4227,   0.4220,  ...,  13.1751,  -2.0161,   2.6725],
+         [  0.4220,   2.2974, -14.2066,  ...,   2.6725,  56.6857,   3.8916],
+         ...,
+         [ 31.8359,  20.3018,  20.3018,  ...,  -6.5172,  -6.5172,  -6.5172],
+         [ 20.3018,  20.3018,  20.3018,  ...,  -6.5172,  -6.5172,  -6.5172],
+         [ 20.3018,  20.3018,  20.3018,  ...,  -6.5172,  -6.5172,  -6.5172]],
+        [[-20.9968,   6.4381,  16.9333,  ...,  -7.3714,   9.7524,  -5.1619],
+         [ 16.9333,  -1.4794,  -5.9905,  ...,  -5.1619,  26.6000,   1.8349],
+         [ -5.9905, -11.1460,   2.2952,  ...,   1.8349,  -2.1238,  -6.5429],
+         ...,
+         [ 33.4127,   3.4000,   3.4000,  ...,  -8.3841,  -8.3841,  -8.3841],
+         [  3.4000,   3.4000,   3.4000,  ...,  -8.3841,  -8.3841,  -8.3841],
+         [  3.4000,   3.4000,   3.4000,  ...,  -8.3841,  -8.3841,  -8.3841]],
+        [[ 21.3795, -13.9282,  15.0154,  ...,  20.9436,  -5.5590,  -7.9128],
+         [ 15.0154,  -9.3077,   3.0718,  ...,  -7.9128,   0.2821,  -1.2000],
+         [  3.0718,   1.8513, -10.7026,  ...,  -1.2000,   1.2410,   4.5538],
+         ...,
+         [ 14.0564,   9.6103,   9.6103,  ...,  -9.5692,  -9.5692,  -9.5692],
+         [  9.6103,   9.6103,   9.6103,  ...,  -9.5692,  -9.5692,  -9.5692],
+         [  9.6103,   9.6103,   9.6103,  ...,  -9.5692,  -9.5692,  -9.5692]]])

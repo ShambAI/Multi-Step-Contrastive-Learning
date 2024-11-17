@@ -1,0 +1,680 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    python_version: 3.11.5
+    cli_version: 0.17.8
+    framework: huggingface
+    huggingface_version: 4.32.1
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1731855235
+    t:
+      1:
+      - 1
+      - 5
+      - 9
+      - 11
+      - 41
+      - 49
+      - 53
+      - 55
+      2:
+      - 1
+      - 5
+      - 9
+      - 11
+      - 41
+      - 49
+      - 53
+      - 55
+      3:
+      - 1
+      - 7
+      - 13
+      - 17
+      - 23
+      - 24
+      - 37
+      - 66
+      4: 3.11.5
+      5: 0.17.8
+      6: 4.32.1
+      8:
+      - 4
+      - 5
+      10:
+      - 3
+      13: darwin-arm64
+    m:
+    - 1: trainer/global_step
+      6:
+      - 3
+    - 1: parameters/cls_token._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/cls_token.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/cls_token.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/input_layer\.token_embedding\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/input_layer\.token_embedding\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/input_layer\.token_embedding\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/predictive_linear\.1\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/predictive_linear\.1\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/predictive_linear\.1\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/predictive_linear\.1\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/predictive_linear\.1\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/predictive_linear\.1\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.0\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.0\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.0\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.0\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.0\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.0\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.1\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.1\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.1\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.1\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.1\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.1\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.4\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.4\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.4\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.4\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.4\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/contrastive_predictor\.4\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv1\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv1\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv1\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv1\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv1\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv1\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv2\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv2\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv2\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv2\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv2\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv2\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv3\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv3\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv3\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv3\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv3\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.conv3\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn1\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn1\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn1\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn1\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn1\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn1\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn2\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn2\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn2\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn2\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn2\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn2\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn3\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn3\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn3\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn3\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn3\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: parameters/encoder\.bn3\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.4\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.4\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.4\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.4\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.4\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.4\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.1\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.1\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.1\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.1\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.1\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.1\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.0\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.0\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.0\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.0\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.0\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/contrastive_predictor\.0\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/predictive_linear\.1\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/predictive_linear\.1\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/predictive_linear\.1\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/predictive_linear\.1\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/predictive_linear\.1\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/predictive_linear\.1\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn3\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn3\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn3\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn3\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn3\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn3\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv3\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv3\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv3\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv3\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv3\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv3\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn2\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn2\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn2\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn2\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn2\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn2\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv2\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv2\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv2\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv2\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv2\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv2\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn1\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn1\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn1\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn1\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn1\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.bn1\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv1\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv1\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv1\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv1\.bias._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv1\.bias.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/encoder\.conv1\.bias.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/input_layer\.token_embedding\.weight._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/input_layer\.token_embedding\.weight.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/input_layer\.token_embedding\.weight.bins
+      5: 1
+      6:
+      - 1
+    - 1: gradients/cls_token._type
+      5: 1
+      6:
+      - 1
+    - 1: gradients/cls_token.values
+      5: 1
+      6:
+      - 1
+    - 1: gradients/cls_token.bins
+      5: 1
+      6:
+      - 1
+class_to_exclude:
+  desc: null
+  value: 3
+hop_length:
+  desc: null
+  value: 125
+n_fft:
+  desc: null
+  value: 250
+num_labels:
+  desc: null
+  value: 4
+seq_length:
+  desc: null
+  value: 300
+win_length:
+  desc: null
+  value: 250
+batch_size:
+  desc: null
+  value: 8
+epochs:
+  desc: null
+  value: 500
+feature_dim:
+  desc: null
+  value: 178
+loss:
+  desc: null
+  value: LS_HATCL_LOSS
+lr:
+  desc: null
+  value: 0.001
+lr_scheduler:
+  desc: null
+  value: ExponentialTFDecay
+margin:
+  desc: null
+  value: 5
+margin_thresh:
+  desc: null
+  value: 0.4
+mask_fraction:
+  desc: null
+  value: 0.3
+mloss:
+  desc: null
+  value: LS_MARGIN_LOSS
+mse_lambda:
+  desc: null
+  value: 0.4
+number_sample:
+  desc: null
+  value: 1
+number_subject:
+  desc: null
+  value: 10
+optimizer:
+  desc: null
+  value: AdamW
+out_features:
+  desc: null
+  value: 32
+sequence_sample:
+  desc: null
+  value: 300
+temperature:
+  desc: null
+  value: 0.5
+tnc_window:
+  desc: null
+  value: 20
+total_subjects:
+  desc: null
+  value: 30000
+weight_decay:
+  desc: null
+  value: 0.0
+Algorithm:
+  desc: null
+  value: timedlr
+Dataset:
+  desc: null
+  value: sleepeeg
+Train_DS_size:
+  desc: null
+  value: 989
+Batch_Size:
+  desc: null
+  value: 8
+Epochs:
+  desc: null
+  value: 500
+Patience:
+  desc: null
+  value: 5
+Seed:
+  desc: null
+  value: 42

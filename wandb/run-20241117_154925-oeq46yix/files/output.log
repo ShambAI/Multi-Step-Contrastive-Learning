@@ -1,0 +1,20 @@
+[34m[1mwandb[39m[22m: [33mWARNING[39m Calling wandb.run.save without any arguments is deprecated.Changes to attributes are automatically persisted.
+  0%|                                                                                                                                                   | 0/500 [00:00<?, ?it/s]
+torch.Size([8, 299, 1780])
+  0%|                                                                                                                                                   | 0/500 [00:04<?, ?it/s]
+Traceback (most recent call last):
+  File "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/TimeDRL.py", line 435, in <module>
+    main(train_loader, valid_loader, valid_balanced_dataloader, seed)
+  File "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/TimeDRL.py", line 229, in main
+    cos_sim(i_1, i_2_pred).mean()
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/distance.py", line 89, in forward
+    return F.cosine_similarity(x1, x2, self.dim, self.eps)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: The size of tensor a (32) must match the size of tensor b (178) at non-singleton dimension 1

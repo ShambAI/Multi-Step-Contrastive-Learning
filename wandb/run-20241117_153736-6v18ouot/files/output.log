@@ -1,0 +1,40 @@
+[34m[1mwandb[39m[22m: [33mWARNING[39m Calling wandb.run.save without any arguments is deprecated.Changes to attributes are automatically persisted.
+  0%|                                                                                                                                                   | 0/500 [00:03<?, ?it/s]
+Traceback (most recent call last):
+  File "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/TimeDRL.py", line 433, in <module>
+    main(train_loader, valid_loader, valid_balanced_dataloader, seed)
+  File "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/TimeDRL.py", line 209, in main
+    ) = attn_model(x)
+        ^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1561, in _call_impl
+    result = forward_call(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/src/models/timedrlmodel.py", line 168, in forward
+    x_pred_1 = self.predictive_linear(t_1)  # (B * C, T_p, P) or (B, T_p, C * P)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/container.py", line 217, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/linear.py", line 116, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (2392x32 and 178x1780)
+torch.Size([8, 300, 178])
+torch.Size([8, 299, 1780])
+torch.Size([8, 300, 1780])
+torch.Size([8, 300, 178])

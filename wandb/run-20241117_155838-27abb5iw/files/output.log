@@ -1,0 +1,141 @@
+[34m[1mwandb[39m[22m: [33mWARNING[39m Calling wandb.run.save without any arguments is deprecated.Changes to attributes are automatically persisted.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 24%|████████████████████████████████▉                                                                                                      | 122/500 [30:25<1:09:42, 11.07s/it][34m[1mwandb[39m[22m: Network error resolved after 0:18:15.026696, resuming normal operation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 31%|█████████████████████████████████████████▌                                                                                             | 154/500 [37:03<1:23:16, 14.44s/it]
+Traceback (most recent call last):
+  File "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/TimeDRL.py", line 434, in <module>
+    main(train_loader, valid_loader, valid_balanced_dataloader, seed)
+  File "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/TimeDRL.py", line 209, in main
+    ) = attn_model(x)
+        ^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1561, in _call_impl
+    result = forward_call(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/src/models/timedrlmodel.py", line 159, in forward
+    z_1 = self.encoder(x_1)  # (B * C, T_p + 1, D) or (B, T_p + 1, D)
+          ^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/src/models/attention_model.py", line 100, in forward
+    x = self.bn1(x)
+        ^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/batchnorm.py", line 175, in forward
+    return F.batch_norm(
+           ^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/functional.py", line 2482, in batch_norm
+    return torch.batch_norm(
+           ^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

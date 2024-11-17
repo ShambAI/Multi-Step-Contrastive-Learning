@@ -170,7 +170,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
     if config.WANDB:
         ds_name = os.path.realpath(ds_path).split('/')[-1]
         proj_name = 'Dynamic_CL' + ds_name + str(seed)
-        run_name = 'ts2vec'
+        run_name = 'soft_ts2vec'
 
         wandb_logger = WandbLogger(project=proj_name)
         
@@ -339,7 +339,7 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
                 best_cluster_metrics = cluster_metrics
             
             if epoch % config.SAVE_INTERVAL == 0:
-                torch.save(attn_model.state_dict(), f'models/{ds_name + str(seed)}_ts2vec_model_epoch_{epoch}.pth')
+                torch.save(attn_model.state_dict(), f'models/{ds_name + str(seed)}_softts2vec_model_epoch_{epoch}.pth')
 
     
     if config.WANDB:

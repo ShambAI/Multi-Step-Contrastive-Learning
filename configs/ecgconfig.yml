@@ -54,7 +54,7 @@ DATASET_ARGS:
   n_fft: [250]
   hop_length: [125]
   win_length: [250]
-  seq_length: [500]
+  seq_length: [119]
   num_labels: [4]
 
 # -- Model 
