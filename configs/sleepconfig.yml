@@ -63,7 +63,7 @@ ALGORITHM: DownstreamMLP
 # Arguments for classifier
 # (all given as lists in case to perform a GridSearch)
 ALGORITHM_ARGS:
-  epochs: [500]
+  epochs: [100]
   margin: [5]
   feature_dim: [178]
   out_features: [32]

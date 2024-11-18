@@ -200,33 +200,11 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
         train_epoch_loss = train_running_loss / len(train_loader.dataset)
         # print(f"Epoch {epoch + 1}/{num_epochs}, Train Loss: {train_epoch_loss:.4f}")
 
-        # Log training loss to Wandb
+         # Log training loss to Wandb
         if config.WANDB and batch_idx % 10 == 0:
             wandb.log({'Train Loss': train_epoch_loss, 'Epoch': epoch})
 
         if epoch % config.VALID_INTERVAL == 0:
-        
-            attn_model.eval()  # Set the model to evaluation mode
-            valid_running_loss = 0
-            for batch_idx, (time_series, _) in enumerate(valid_loader):
-                time_series = time_series.to(device)
-
-                # Create a mask tensor with the same shape as the original tensor
-                # Forward pass
-                features = attn_model(time_series)
-
-                # Flatten features to have dimensions [batch_size * sequence_length, feature dim]
-                features = features.reshape(-1, features.size(-1))
-
-                # Compute training loss
-                valid_loss = cl_loss(features)
-
-                # Update training statistics
-                valid_running_loss += valid_loss.item() * time_series.size(0)
-
-            scheduler.step(valid_running_loss)
-            valid_epoch_loss = valid_running_loss / len(valid_loader.dataset)
-            # print(f"Epoch {epoch + 1}/{num_epochs}, Validation Loss: {valid_epoch_loss:.4f}")
 
             for batch in valid_balanced_dataloader:
                 images, _ = batch
@@ -278,10 +256,11 @@ def main(train_loader, valid_loader, valid_balanced_dataloader, seed):
             if epoch % config.SAVE_INTERVAL == 0:
                 torch.save(attn_model.state_dict(), f'models/{ds_name + str(seed)}_simMTM_model_epoch_{epoch}.pth')
 
+    
     if config.WANDB:
         wandb.finish()
         
-    print("Vanilla Training and validation complete.")
+    print("Training and validation complete.")
     print("|")
     print(best_dbi, best_chi, best_sc)
 

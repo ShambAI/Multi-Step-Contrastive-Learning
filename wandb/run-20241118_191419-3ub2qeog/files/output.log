@@ -1,0 +1,59 @@
+[34m[1mwandb[39m[22m: [33mWARNING[39m Calling wandb.run.save without any arguments is deprecated.Changes to attributes are automatically persisted.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  5%|██████▌                                                                                                                           | 25/500 [3:01:52<167:04:11, 1266.21s/it][34m[1mwandb[39m[22m: Network error resolved after 1:19:23.647955, resuming normal operation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 10%|████████████▉                                                                                                                       | 49/500 [5:01:25<46:14:20, 369.09s/it]
+Traceback (most recent call last):
+  File "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/SimMTM.py", line 382, in <module>
+    main(train_loader, valid_loader, valid_balanced_dataloader, seed)
+  File "/Users/shamba/Desktop/Paper 1 - HAR RL/NODATA_MarginMultistepCL/baselines/SimMTM.py", line 257, in main
+    torch.save(attn_model.encoder.state_dict(), f'models/{ds_name + str(seed)}_simMTM_model_epoch_{epoch}.pth')
+               ^^^^^^^^^^^^^^^^^^
+  File "/Users/shamba/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1688, in __getattr__
+    raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+AttributeError: 'FeatureProjector' object has no attribute 'encoder'
